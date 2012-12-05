@@ -24,22 +24,22 @@
   problem with genotype calls.}
 
 \value{
-  The object returned is a list with four elements:
+  The object returned is a data.frame with nine columns
   \describe{
-    \item{genotype.counts:}{
-      Three column matrix with the counts for each genotype
+    \item{genotype.counts.*:}{
+      Three columns with the counts for each genotype, g00, g01, g11
     }
-    \item{allele.counts:}{
-      Two column matrix with the counts for each allele
+    \item{allele.freq.*:}{
+      Two columns with the frequencies for each allele, a1, a2
     }
-    \item{hwe:}{
-      Two column matrix giving a Z score and p value for departure from
+    \item{hwe.*:}{
+      Two columns giving a Z score (hwe.Z) and p value (hwe.p.value) for departure from
       a null hypothesis of Hardy Weinberg equilibrium.  NB, this is only
       calculated when there are exactly two alleles and both are observed.
     }
-    \item{criteria:}{
-      Two column data.frame.  Summary stats are only calculated variants
-      with \code{diploid==TRUE} and \code{n.alt.alleles<=1} (ie at most
+    \item{criteria.*:}{
+      Two columns.  Summary stats are only calculated variants
+      with \code{criteria.diploid==TRUE} and \code{criteria.n.alt.alleles<=1} (ie at most
       one alternative allele).
     }
 }

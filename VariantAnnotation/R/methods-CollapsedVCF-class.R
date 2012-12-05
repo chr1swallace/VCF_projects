@@ -175,6 +175,9 @@ setMethod("snpSummary", "CollapsedVCF", function(x, ...) {
   ## alleles
   g.ref <- ref(x)
   g.alt <- alt(x)
+  if(is(g.alt,"CompressedCharacterList"))
+  g.alt <- g.alt@unlistData
+  
 
   ## called genotypes - ignore phasing and ignore, for now, probabilistic calls
   g<-sub("/|\\|","",geno(x)$GT)
@@ -187,9 +190,9 @@ setMethod("snpSummary", "CollapsedVCF", function(x, ...) {
   ## genotype counts of allele 1
   g.ct<-matrix(NA,nrow(g),3)
   dimnames(g.ct) <- list(Variant=rownames(g),Genotype=c("g00","g01","g11"))
-  g.ct[use,] <- cbind(rowSums(g[use,]=="00"),
-                      rowSums(g[use,]=="10"|g[use,]=="01"),
-                      rowSums(g[use,]=="11"))
+  g.ct[use,] <- cbind(rowSums(g[use,,drop=FALSE]=="00"),
+                      rowSums(g[use,,drop=FALSE]=="10"|g[use,]=="01"),
+                      rowSums(g[use,,drop=FALSE]=="11"))
   ## matrix explaining whether variants got dropped
   g.use <- data.frame(diploid=diploid,
                       n.alt.alleles=n.alt)
@@ -211,10 +214,10 @@ setMethod("snpSummary", "CollapsedVCF", function(x, ...) {
   ## a list may not be the best thing to return
   ## alternatives: a matrix with lots of columns or a new class
   ## with methods to show all/some elements
-  return(list(genotype.counts=g.ct,
+  return(data.frame(genotype.counts=g.ct,
               allele.freq=a.fq,
               hwe=cbind(Z=Z,
-                p.value=pchisq(Z^2,1,lower=FALSE)),
+                p.value=pchisq(Z^2,1,lower.tail=FALSE)),
               criteria=g.use))
 
 })
