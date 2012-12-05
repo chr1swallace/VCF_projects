@@ -76,10 +76,6 @@ setGeneric("writeVcf", signature = c("obj", "filename"),
     standardGeneric("writeVcf")
 )
 
-setGeneric("MatrixToSnpMatrix", signature = c("callMatrix", "ref", "alt"),
-    function(callMatrix, ref, alt, ...)
-    standardGeneric("MatrixToSnpMatrix")
-)
 
 ### -------------------------------------------------------------------------
 ### scanVcf
@@ -100,7 +96,22 @@ setGeneric("scanVcf", signature = c("file", "param"),
 )
 
 ### -------------------------------------------------------------------------
+<<<<<<< HEAD
 ### VCF class
+=======
+### filterVcf
+###
+
+setGeneric("filterVcf", signature = "file",
+           function(file, genome, destination, ..., verbose = FALSE,
+                    index = FALSE, filters = FilterRules(),
+                    param = ScanVcfParam())
+           standardGeneric("filterVcf")
+)
+
+### -------------------------------------------------------------------------
+### VCF class 
+>>>>>>> upstream/master
 ###
 
 setGeneric("fixed", signature = "x",
@@ -187,6 +198,7 @@ setGeneric("meta", signature = "x",
 )
 
 ### -------------------------------------------------------------------------
+<<<<<<< HEAD
 ### VAFilter and VAFilterResult
 ###
 
@@ -198,16 +210,27 @@ setGeneric("name",
 setGeneric("stats",
     function(x, ...)
     standardGeneric("stats")
+=======
+### snp encoding methods 
+###
+
+setGeneric("MatrixToSnpMatrix", signature = c("callMatrix", "ref", "alt"),
+    function(callMatrix, ref, alt, ...)
+    standardGeneric("MatrixToSnpMatrix")
+>>>>>>> upstream/master
 )
 
-setGeneric("vaFilter", signature = "fun",
-    function(fun, name=NA_character_, ...)
-    standardGeneric("vaFilter")
+setGeneric("genotypeToSnpMatrix", signature = "x",
+    function(x, ...)
+    standardGeneric("genotypeToSnpMatrix")
 )
 
+<<<<<<< HEAD
 setGeneric(".vaValidity")
 
 
 ## Allele freq, HWE
 setGeneric("snpSummary", function(x, ...) standardGeneric("snpSummary") )
 
+=======
+>>>>>>> upstream/master
